@@ -8,6 +8,7 @@ const getRandomIntInclusive = (min, max) => {
   //return Math.floor(Math.random() * (max - min + 1)) + min;
 
   const arr = [];
+  // eslint-disable-next-line id-length
   for (let i = 0; i < max; i++) {
     const num = Math.floor(Math.random() * (max - min + 1)) + min;
     if (arr.includes(num)) {
@@ -59,4 +60,5 @@ const createDescription = () => ({
 });
 const photos = Array.from({length: COUNT_DESCRIPTIONS}, createDescription);
 
+// eslint-disable-next-line no-console
 console.log(photos);
