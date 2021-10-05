@@ -5,18 +5,17 @@ const getRandomIntInclusive = (min, max) => {
   }
   min = Math.ceil(min);
   max = Math.floor(max);
-  //return Math.floor(Math.random() * (max - min + 1)) + min;
 
   const arr = [];
-  // eslint-disable-next-line id-length
-  for (let i = 0; i < max; i++) {
+
+  for (let index = 0; index < max; index++) {
     const num = Math.floor(Math.random() * (max - min + 1)) + min;
     if (arr.includes(num)) {
-      i = i - 1;
+      index = index - 1;
     } else {
       arr.push(num);
     }
-    return arr[i];
+    return arr[index];
   }
 };
 getRandomIntInclusive(1, 6);
@@ -42,19 +41,21 @@ const COMMENT_MESSAGE = ['Всё отлично!',
   'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'];
 const COMMENT_AUTHOR = ['Алиса', 'Марк', 'Александр', 'Алина', 'Денис', 'Вера'];
-const COMMENTS = [
-  {
-    id: getRandomIntInclusive(1, 6),
-    avatar: `img/avatar-${  getRandomIntInclusive(1, 6)  }.svg`,
-    message: COMMENT_MESSAGE[getRandomIntInclusive(0, 5)],
-    name: COMMENT_AUTHOR[getRandomIntInclusive(0, 5)],
-  },
-];
+const COMMENTS = [];
+for (let index = 1; index <= 6; index++) {
+  const listItem = {};
+  listItem.id = getRandomIntInclusive(1, 6);
+  listItem.avatar = `img/avatar-${  getRandomIntInclusive(1, 6)  }.svg`;
+  listItem.message = COMMENT_MESSAGE[getRandomIntInclusive(0, 5)];
+  listItem.name = COMMENT_AUTHOR[getRandomIntInclusive(0, 5)];
+  COMMENTS.push(listItem);
+}
 const COUNT_DESCRIPTIONS = 25;
+let id = 1;
 const createDescription = () => ({
-  id: getRandomIntInclusive(1, 25),
-  url: `photos/${  getRandomIntInclusive(1, 25)  }.jpg`,
-  description: PHOTO_DESCRIPTION[getRandomIntInclusive(0, 24)],
+  id: id++,
+  url: `photos/${ id - 1  }.jpg`,
+  description: PHOTO_DESCRIPTION[id - 2],
   likes: getRandomIntInclusive(15, 200),
   comment: COMMENTS[getRandomIntInclusive(1, 6)],
 });
