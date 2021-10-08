@@ -23,3 +23,5 @@ const photos = Array.from({length: COUNT_DESCRIPTIONS}, createDescription);
 
 // eslint-disable-next-line no-console
 console.log(photos);
+
+export {photos};
