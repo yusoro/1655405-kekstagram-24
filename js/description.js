@@ -24,7 +24,6 @@ const createDescription = () => ({
   likes: getRandomIntInclusive(LIKES.min, LIKES.max),
   comments: COMMENTS.slice(0, getRandomIntInclusive(1, 6)),
 });
-//const photos = Array.from({length: COUNT_DESCRIPTIONS}, createDescription);
 for (let i = 0; i < COUNT_DESCRIPTIONS; i++) {
   PHOTOS.push(createDescription());
 }
