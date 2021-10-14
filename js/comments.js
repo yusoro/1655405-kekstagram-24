@@ -8,12 +8,16 @@ const COMMENT_MESSAGE = ['Всё отлично!',
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'];
 const COMMENT_AUTHOR = ['Алиса', 'Марк', 'Александр', 'Алина', 'Денис', 'Вера'];
 const COMMENTS = [];
-for (let index = 0; index <= 6; index++) {
+const commentNumber = {
+  min: 0,
+  max: 6,
+};
+for (let index = 0; index <= COMMENT_MESSAGE.length; index++) {
   const listItem = {};
-  listItem.id = getRandomIntInclusive(0, 500);
-  listItem.avatar = `img/avatar-${  getRandomIntInclusive(1, 6)  }.svg`;
-  listItem.message = COMMENT_MESSAGE[getRandomIntInclusive(0, 5)];
-  listItem.name = COMMENT_AUTHOR[getRandomIntInclusive(0, 5)];
+  listItem.id = getRandomIntInclusive(0, commentNumber.max);
+  listItem.avatar = `img/avatar-${  getRandomIntInclusive(1, commentNumber.max)  }.svg`;
+  listItem.message = COMMENT_MESSAGE[getRandomIntInclusive(0, (commentNumber.max - 1))];
+  listItem.name = COMMENT_AUTHOR[getRandomIntInclusive(0, (commentNumber.max - 1))];
   COMMENTS.push(listItem);
 }
 

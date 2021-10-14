@@ -18,12 +18,10 @@ const getRandomIntInclusive = (min, max) => {
     return arr[index];
   }
 };
-getRandomIntInclusive(1, 6);
-
 
 function getStringLength(string, maxStringLength) {
   return string.length <= maxStringLength;
 }
-getStringLength('Классное фото', 140);
 
 export {getRandomIntInclusive};
+export {getStringLength};

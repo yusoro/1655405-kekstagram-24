@@ -11,17 +11,23 @@ const PHOTO_DESCRIPTION = ['В деревне у бабушки',
   'Ночной город', 'Зима в лесу'];
 
 const COUNT_DESCRIPTIONS = 25;
+const PHOTOS = [];
+const LIKES = {
+  min: 15,
+  max: 200,
+};
 let id = 1;
 const createDescription = () => ({
   id: id++,
   url: `photos/${ id - 1  }.jpg`,
   description: PHOTO_DESCRIPTION[id - 2],
-  likes: getRandomIntInclusive(15, 200),
-  comment: COMMENTS.slice(0, getRandomIntInclusive(1, 6)),
+  likes: getRandomIntInclusive(LIKES.min, LIKES.max),
+  comments: COMMENTS.slice(0, getRandomIntInclusive(1, 6)),
 });
-const photos = Array.from({length: COUNT_DESCRIPTIONS}, createDescription);
+//const photos = Array.from({length: COUNT_DESCRIPTIONS}, createDescription);
+for (let i = 0; i < COUNT_DESCRIPTIONS; i++) {
+  PHOTOS.push(createDescription());
+}
 
-// eslint-disable-next-line no-console
-console.log(photos);
-
-export {photos};
+export {PHOTOS};
+export {COUNT_DESCRIPTIONS};
