@@ -3,7 +3,7 @@ import { PHOTOS } from './description.js';
 const TEMPLATE = document.querySelector('#picture').content;
 const FRAGMENT = document.createDocumentFragment();
 const PICTURE_TEMPLATE = TEMPLATE.querySelector('a');
-const PICTURES = document.querySelector('.pictures');
+const pictures = document.querySelector('.pictures');
 
 const makePicture = ({url, likes, comments}) => {
   const PICTURE = PICTURE_TEMPLATE.cloneNode(true);
@@ -18,7 +18,8 @@ const addPictures = () => {
     makePicture({url, likes, comments});
   });
 };
-addPictures();
-PICTURES.appendChild(FRAGMENT);
 
-export {PICTURES};
+
+export {pictures};
+export {addPictures};
+export {FRAGMENT};

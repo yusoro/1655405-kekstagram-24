@@ -1,4 +1,4 @@
-import { getRandomIntInclusive } from './util';
+import { getRandomIntInclusive } from './util.js';
 import { COMMENTS } from './comments.js';
 
 const PHOTO_DESCRIPTION = ['В деревне у бабушки',
