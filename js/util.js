@@ -23,7 +23,7 @@ function getStringLength(string, maxStringLength) {
   return string.length <= maxStringLength;
 }
 
-const isEscapeKey = (evt) => evt.key === 'Escape';
+const isEscapeKey = (evt) => evt.key === 'Escape' || evt.key === 'Esc';
 
 export {getRandomIntInclusive, isEscapeKey};
 export {getStringLength};

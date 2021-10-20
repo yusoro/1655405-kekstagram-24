@@ -1293,7 +1293,9 @@ main {
   opacity: 0.6;
 }
 
-
+.validation__error {
+  border-color: #e90000;
+}
 /**
  * Экран загрузки изображения
  */
