@@ -40,19 +40,19 @@ const addComments = () => {
   socialComments.append(commentFragment);
 };
 
+const hideModal = () => {
+  bigPicture.classList.add('hidden');
+  commentsLoader.classList.remove('hidden');
+  body.classList.remove('modal-open');
+};
 
 const closeFullPhoto = () => {
   closeBigPicture.addEventListener('click', () => {
-    bigPicture.classList.add('hidden');
-    commentsLoader.classList.remove('hidden');
-    body.classList.remove('modal-open');
+    hideModal();
 
     document.removeEventListener('keydown', (evt) => {
       if (isEscapeKey(evt)) {
-        evt.preventDefault();
-        bigPicture.classList.add('hidden');
-        commentsLoader.classList.remove('hidden');
-        body.classList.remove('modal-open');
+        hideModal();
       }
     });
   });
@@ -72,9 +72,7 @@ const openFullPhoto = (thumbnail, url, likes, description, comments) => {
     document.addEventListener('keydown', (evt) => {
       if (isEscapeKey(evt)) {
         evt.preventDefault();
-        bigPicture.classList.add('hidden');
-        commentsLoader.classList.remove('hidden');
-        body.classList.remove('modal-open');
+        hideModal();
       }
     });
 
