@@ -29,4 +29,3 @@ for (let i = 0; i < COUNT_DESCRIPTIONS; i++) {
 }
 
 export {PHOTOS};
-export {COUNT_DESCRIPTIONS};
