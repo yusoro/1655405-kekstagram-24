@@ -1,25 +1,30 @@
 import { PHOTOS } from './description.js';
+import {showBigPicture} from './fullphoto.js';
 
-const TEMPLATE = document.querySelector('#picture').content;
-const FRAGMENT = document.createDocumentFragment();
-const PICTURE_TEMPLATE = TEMPLATE.querySelector('a');
+const template = document.querySelector('#picture').content;
+
+const pictureTemplate  = template.querySelector('a');
 const pictures = document.querySelector('.pictures');
 
-const makePicture = ({url, likes, comments}) => {
-  const PICTURE = PICTURE_TEMPLATE.cloneNode(true);
-  PICTURE.querySelector('.picture__img').src = url;
-  PICTURE.querySelector('.picture__likes').textContent = likes;
-  PICTURE.querySelector('.picture__comments').textContent = comments.length;
-  FRAGMENT.appendChild(PICTURE);
+const makePicture = (photo) => {
+  const picture = pictureTemplate.cloneNode(true);
+  picture.querySelector('.picture__img').src = photo.url;
+  picture.querySelector('.picture__likes').textContent = photo.likes;
+  picture.querySelector('.picture__comments').textContent = photo.comments.length;
+
+  picture.addEventListener('click', () => {
+    showBigPicture(photo);
+  });
+
+  return picture;
 };
 
 const addPictures = () => {
-  PHOTOS.forEach(({url, likes, comments}) => {
-    makePicture({url, likes, comments});
+  const fragment = document.createDocumentFragment();
+  PHOTOS.forEach((item) => {
+    fragment.appendChild(makePicture(item));
   });
+  pictures.appendChild(fragment);
 };
 
-
-export {pictures};
 export {addPictures};
-export {FRAGMENT};
