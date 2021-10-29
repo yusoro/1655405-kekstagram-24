@@ -25,7 +25,6 @@ const effects = {
   },
   chrome: (value) => {
     imagePreview.style.filter = `grayscale(${value})`;
-    console.log(`28: grayscale(${value})`);
   },
   sepia: (value) => {
     imagePreview.style.filter = `sepia(${value})`;
@@ -45,12 +44,17 @@ const uploadFormOpen = () => {
   imgUploadFile.addEventListener('change', () => {
     imgUploadOverlay.classList.remove('hidden');
     body.classList.add('modal-open');
+    currentEffect = 'none';
+    effectSlider.noUiSlider.reset();
 
     document.addEventListener('keydown', (evt) => {
       if (isEscapeKey(evt)) {
         evt.preventDefault();
         imgUploadOverlay.classList.add('hidden');
         body.classList.remove('modal-open');
+        effectSlider.noUiSlider.reset();
+        document.querySelector('.effect-level').classList.add('hidden');
+        currentEffect = 'none';
       }
     });
   });
@@ -60,6 +64,9 @@ const uploadFormClose = () => {
   closeButton.addEventListener('click', () => {
     imgUploadOverlay.classList.add('hidden');
     body.classList.remove('modal-open');
+    effectSlider.noUiSlider.reset();
+    document.querySelector('.effect-level').classList.add('hidden');
+    currentEffect = 'none';
   });
 
   document.removeEventListener('keydown', (evt) => {
@@ -67,6 +74,9 @@ const uploadFormClose = () => {
       evt.preventDefault();
       imgUploadOverlay.classList.add('hidden');
       body.classList.remove('modal-open');
+      effectSlider.noUiSlider.reset();
+      document.querySelector('.effect-level').classList.add('hidden');
+      currentEffect = 'none';
     }
   });
 };
@@ -178,7 +188,7 @@ noUiSlider.create(effectSlider, {
   connect: 'lower',
 
 });
-valueInput.value = 100;
+
 const applyEffect = () => {
   effectsList.addEventListener('click', (evt) => {
     if (evt.target.classList.contains('effects__preview')) {
@@ -193,9 +203,12 @@ effectSlider.noUiSlider.on('update', (values, handle) => {
   effects[currentEffect](valueInput.value);
 });
 
+document.querySelector('.effect-level').classList.add('hidden');
 
 for (let i = 0; i < radio.length; i++) {
   radio[i].addEventListener('change', (evt) => {
+    document.querySelector('.effect-level').classList.remove('hidden');
+    effectSlider.noUiSlider.set(100);
     if (evt.target.value === 'marvin') {
       effectSlider.noUiSlider.updateOptions({
         range: {
@@ -223,6 +236,8 @@ for (let i = 0; i < radio.length; i++) {
         step: 0.1,
         start: 3,
       });
+    } else if (evt.target.value === 'none') {
+      document.querySelector('.effect-level').classList.add('hidden');
     }
   });
 }
