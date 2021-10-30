@@ -232,6 +232,17 @@ const applyEffect = () => {
           start: 3,
         });
         break;
+      case 'chrome':
+      case 'sepia':
+        effectSlider.noUiSlider.updateOptions({
+          range: {
+            min: 0,
+            max: 1,
+          },
+          start: 1,
+          step: 0.1,
+        });
+        break;
       case 'none':
         document.querySelector('.effect-level').classList.add('hidden');
     }
