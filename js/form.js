@@ -18,7 +18,13 @@ const effectsList = document.querySelector('.effects__list');
 let currentEffect = 'none';
 const effectSlider = document.querySelector('.effect-level__slider');
 const valueInput = document.querySelector('.effect-level__value');
-const radio = effectsList.querySelectorAll('.effects__radio');
+
+let currentValue = 100;
+const SCALE_EDGES = {
+  min: 25,
+  max: 100,
+};
+const SCALE_STEP = 25;
 const effects = {
   none: () => {
     imagePreview.style.filter = 'none';
@@ -46,6 +52,8 @@ const uploadFormOpen = () => {
     body.classList.add('modal-open');
     currentEffect = 'none';
     effectSlider.noUiSlider.reset();
+    currentValue = 100;
+    imagePreview.style.transform = `scale(${currentValue/100})`;
 
     document.addEventListener('keydown', (evt) => {
       if (isEscapeKey(evt)) {
@@ -148,32 +156,25 @@ hashtag.addEventListener('input', () => {
   hashtag.reportValidity();
 });
 
+scaleControlValue.value = `${currentValue}%`;
+
 const minimizePhoto = () => {
   scaleControlSmaller.addEventListener('click', () => {
-    if (scaleControlValue.value === '100%') {
-      scaleControlValue.value = '75%';
-      imagePreview.style.transform = 'scale(0.75)';
-    } else if (scaleControlValue.value === '75%') {
-      scaleControlValue.value = '50%';
-      imagePreview.style.transform = 'scale(0.5)';
-    } else if (scaleControlValue.value === '50%') {
-      scaleControlValue.value = '25%';
-      imagePreview.style.transform = 'scale(0.25)';
+    if (currentValue !== SCALE_EDGES.min) {
+      scaleControlValue.value = `${currentValue - SCALE_STEP}%`;
+      currentValue -= SCALE_STEP;
+      imagePreview.style.transform = `scale(${currentValue/100})`;
     }
+
   });
 };
 
 const maximizePhoto = () => {
   scaleControlBigger.addEventListener('click', () => {
-    if (scaleControlValue.value === '25%') {
-      scaleControlValue.value = '50%';
-      imagePreview.style.transform = 'scale(0.5)';
-    } else if (scaleControlValue.value === '50%') {
-      scaleControlValue.value = '75%';
-      imagePreview.style.transform = 'scale(0.75)';
-    } else if (scaleControlValue.value === '75%') {
-      scaleControlValue.value = '100%';
-      imagePreview.style.transform = 'scale(1)';
+    if (currentValue !== SCALE_EDGES.max) {
+      scaleControlValue.value = `${currentValue + SCALE_STEP}%`;
+      currentValue += SCALE_STEP;
+      imagePreview.style.transform = `scale(${currentValue/100})`;
     }
   });
 };
@@ -196,6 +197,45 @@ const applyEffect = () => {
 
       effects[currentEffect](valueInput.value);
     }
+
+    document.querySelector('.effect-level').classList.remove('hidden');
+    effectSlider.noUiSlider.set(100);
+
+    switch (currentEffect) {
+      case 'marvin':
+        effectSlider.noUiSlider.updateOptions({
+          range: {
+            min: 0,
+            max: 100,
+          },
+          step: 1,
+          start: 100,
+        });
+        break;
+      case 'phobos':
+        effectSlider.noUiSlider.updateOptions({
+          range: {
+            min: 0,
+            max: 3,
+          },
+          step: 0.1,
+          start: 3,
+        });
+        break;
+      case 'heat':
+        effectSlider.noUiSlider.updateOptions({
+          range: {
+            min: 1,
+            max: 3,
+          },
+          step: 0.1,
+          start: 3,
+        });
+        break;
+      case 'none':
+        document.querySelector('.effect-level').classList.add('hidden');
+    }
+
   });
 };
 effectSlider.noUiSlider.on('update', (values, handle) => {
@@ -204,42 +244,5 @@ effectSlider.noUiSlider.on('update', (values, handle) => {
 });
 
 document.querySelector('.effect-level').classList.add('hidden');
-
-for (let i = 0; i < radio.length; i++) {
-  radio[i].addEventListener('change', (evt) => {
-    document.querySelector('.effect-level').classList.remove('hidden');
-    effectSlider.noUiSlider.set(100);
-    if (evt.target.value === 'marvin') {
-      effectSlider.noUiSlider.updateOptions({
-        range: {
-          min: 0,
-          max: 100,
-        },
-        step: 1,
-        start: 100,
-      });
-    } else if (evt.target.value === 'phobos') {
-      effectSlider.noUiSlider.updateOptions({
-        range: {
-          min: 0,
-          max: 3,
-        },
-        step: 0.1,
-        start: 3,
-      });
-    } else if (evt.target.value === 'heat') {
-      effectSlider.noUiSlider.updateOptions({
-        range: {
-          min: 1,
-          max: 3,
-        },
-        step: 0.1,
-        start: 3,
-      });
-    } else if (evt.target.value === 'none') {
-      document.querySelector('.effect-level').classList.add('hidden');
-    }
-  });
-}
 
 export {uploadFormOpen, uploadFormClose, minimizePhoto, maximizePhoto, applyEffect};
