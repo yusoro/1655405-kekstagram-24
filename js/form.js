@@ -53,6 +53,7 @@ const uploadFormOpen = () => {
     currentEffect = 'none';
     effectSlider.noUiSlider.reset();
     currentValue = 100;
+    scaleControlValue.value = `${currentValue}%`;
     imagePreview.style.transform = `scale(${currentValue/100})`;
 
     document.addEventListener('keydown', (evt) => {
