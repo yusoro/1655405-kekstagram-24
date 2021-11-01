@@ -1,12 +1,16 @@
 import {addPictures} from './pictures.js';
 import './form.js';
-import {uploadFormOpen, uploadFormClose, minimizePhoto, maximizePhoto, applyEffect} from './form.js';
+import {uploadFormOpen, minimizePhoto, maximizePhoto, applyEffect, setUploadFormSubmit} from './form.js';
 import './fullphoto.js';
+import {getData} from './api.js';
 
-addPictures();
-
+setUploadFormSubmit();
 uploadFormOpen();
-uploadFormClose();
 minimizePhoto();
 maximizePhoto();
 applyEffect();
+
+getData((thumbnails) => {
+  addPictures(thumbnails);
+});
+

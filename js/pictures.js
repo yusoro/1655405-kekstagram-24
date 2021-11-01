@@ -1,4 +1,3 @@
-import { PHOTOS } from './description.js';
 import {showBigPicture, showComments, showMoreComments} from './fullphoto.js';
 
 const template = document.querySelector('#picture').content;
@@ -21,9 +20,9 @@ const makePicture = (photo) => {
   return picture;
 };
 
-const addPictures = () => {
+const addPictures = (thumbnails) => {
   const fragment = document.createDocumentFragment();
-  PHOTOS.forEach((item) => {
+  thumbnails.forEach((item) => {
     fragment.appendChild(makePicture(item));
   });
   pictures.appendChild(fragment);
