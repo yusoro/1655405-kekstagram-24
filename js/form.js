@@ -269,8 +269,8 @@ const setUploadFormSubmit = () => {
     evt.preventDefault();
 
     sendData(
-      () => successAlert(),
-      () => errorAlert(),
+      successAlert,
+      errorAlert,
       new FormData(evt.target),
     );
 

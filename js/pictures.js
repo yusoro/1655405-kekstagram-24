@@ -1,4 +1,4 @@
-import {showBigPicture, showComments, showMoreComments} from './fullphoto.js';
+import {showBigPicture} from './fullphoto.js';
 
 const template = document.querySelector('#picture').content;
 
@@ -13,8 +13,6 @@ const makePicture = (photo) => {
 
   picture.addEventListener('click', () => {
     showBigPicture(photo);
-    showComments();
-    showMoreComments();
   });
 
   return picture;

@@ -39,6 +39,12 @@ const errorAlert = () => {
   errorMessage.querySelector('.error__button').addEventListener('click', () => {
     errorMessage.style.display = 'none';
 
+    document.removeEventListener('keydown', (evt) => {
+      if (isEscapeKey(evt)) {
+        evt.preventDefault();
+        errorMessage.style.display = 'none';
+      }
+    });
   });
   document.addEventListener('keydown', (evt) => {
     if (isEscapeKey(evt)) {
@@ -60,6 +66,13 @@ const successAlert = () => {
 
   successMessage.querySelector('.success__button').addEventListener('click', () => {
     successMessage.style.display = 'none';
+
+    document.removeEventListener('keydown', (evt) => {
+      if (isEscapeKey(evt)) {
+        evt.preventDefault();
+        successMessage.style.display = 'none';
+      }
+    });
 
   });
   document.addEventListener('keydown', (evt) => {
@@ -84,7 +97,12 @@ const getDataAlert = () => {
 
   dataAlertMessage.querySelector('button').addEventListener('click', () => {
     dataAlertMessage.style.display = 'none';
-
+    document.removeEventListener('keydown', (evt) => {
+      if (isEscapeKey(evt)) {
+        evt.preventDefault();
+        dataAlertMessage.style.display = 'none';
+      }
+    });
   });
   document.addEventListener('keydown', (evt) => {
     if (isEscapeKey(evt)) {

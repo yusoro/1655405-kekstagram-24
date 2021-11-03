@@ -3,6 +3,7 @@ import './form.js';
 import {uploadFormOpen, minimizePhoto, maximizePhoto, applyEffect, setUploadFormSubmit} from './form.js';
 import './fullphoto.js';
 import {getData} from './api.js';
+import './filters.js';
 
 setUploadFormSubmit();
 uploadFormOpen();

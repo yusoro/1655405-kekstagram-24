@@ -1,4 +1,5 @@
 import {getDataAlert} from './util.js';
+
 const getData = (onSuccess) => {
   fetch('https://24.javascript.pages.academy/kekstagram/data')
     .then((response) => response.json())
