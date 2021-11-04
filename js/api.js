@@ -1,34 +1,24 @@
-import {getDataAlert} from './util.js';
-
-const getData = (onSuccess) => {
-  fetch('https://24.javascript.pages.academy/kekstagram/data')
-    .then((response) => response.json())
-    .then((thumbnails) => {
-      onSuccess(thumbnails);
-    })
-    .catch(() => {
-      getDataAlert();
-    });
+const Urls = {
+  GET: 'https://24.javascript.pages.academy/kekstagram/data',
+  POST: 'https://24.javascript.pages.academy/kekstagram',
 };
 
-const sendData = (successAlert, errorAlert, body) => {
+
+const request = (onSuccess, onError, method, body) => {
   fetch(
-    'https://24.javascript.pages.academy/kekstagram',
+    Urls[method],
     {
-      method: 'POST',
-      body,
+      method: method,
+      body: body,
     },
   )
-    .then((response) => {
-      if (response.ok) {
-        successAlert();
-      } else {
-        errorAlert();
-      }
+    .then((response) => response.json())
+    .then((data) => {
+      onSuccess(data);
     })
     .catch(() => {
-      errorAlert();
+      onError();
     });
 };
 
-export {getData, sendData};
+export {request};

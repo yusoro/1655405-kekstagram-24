@@ -1,5 +1,5 @@
 import { isEscapeKey, errorAlert, successAlert } from './util.js';
-import {sendData} from './api.js';
+import {request} from './api.js';
 
 const imgUploadFile = document.querySelector('#upload-file');
 const imgUploadOverlay = document.querySelector('.img-upload__overlay');
@@ -67,6 +67,7 @@ const uploadFormOpen = () => {
         effectSlider.noUiSlider.reset();
         document.querySelector('.effect-level').classList.add('hidden');
         currentEffect = 'none';
+        uploadForm.reset();
       }
     });
   });
@@ -89,6 +90,7 @@ const uploadFormClose = () => {
       effectSlider.noUiSlider.reset();
       document.querySelector('.effect-level').classList.add('hidden');
       currentEffect = 'none';
+      uploadForm.reset();
     }
   });
 };
@@ -268,13 +270,15 @@ const setUploadFormSubmit = () => {
   uploadForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
 
-    sendData(
+    request(
       successAlert,
       errorAlert,
+      'POST',
       new FormData(evt.target),
     );
 
     uploadFormClose();
+    uploadForm.reset();
   });
 };
 
