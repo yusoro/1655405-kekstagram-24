@@ -26,4 +26,11 @@ const addPictures = (thumbnails) => {
   pictures.appendChild(fragment);
 };
 
-export {addPictures};
+const clearPictures = () => {
+  const addedPictures = document.querySelectorAll('.picture');
+  addedPictures.forEach((item) => {
+    item.remove();
+  });
+};
+
+export {addPictures, clearPictures};
