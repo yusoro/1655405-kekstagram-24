@@ -116,5 +116,12 @@ const getDataAlert = () => {
 
 };
 
-export {getRandomIntInclusive, isEscapeKey, errorAlert, successAlert, getDataAlert, shuffleArray };
-export {getStringLength};
+const debounce = (callback, delay) => {
+  let timeout;
+  return function() {
+    clearTimeout(timeout);
+    timeout = setTimeout(callback, delay);
+  };
+};
+
+export {getRandomIntInclusive, getStringLength, isEscapeKey, errorAlert, successAlert, getDataAlert, shuffleArray, debounce };
