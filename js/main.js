@@ -6,6 +6,7 @@ import './fullphoto.js';
 import { getDataAlert } from './util.js';
 import { shuffleArray } from './util.js';
 import {debounce} from './util.js';
+import './img-upload.js';
 
 const filtersContainer = document.querySelector('.img-filters');
 const filtersForm = filtersContainer.querySelector('.img-filters__form');
