@@ -6,16 +6,14 @@ const getRandomIntInclusive = (min, max) => {
   min = Math.ceil(min);
   max = Math.floor(max);
 
-  const arr = [];
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 
-  for (let index = 0; index < max; index++) {
-    const num = Math.floor(Math.random() * (max - min + 1)) + min;
-    if (arr.includes(num)) {
-      index = index - 1;
-    } else {
-      arr.push(num);
-    }
-    return arr[index];
+};
+
+const shuffleArray = (array) => {
+  for (let i = array.length - 1; i > 0; i --) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
   }
 };
 
@@ -118,5 +116,12 @@ const getDataAlert = () => {
 
 };
 
-export {getRandomIntInclusive, isEscapeKey, errorAlert, successAlert, getDataAlert};
-export {getStringLength};
+const debounce = (callback, delay) => {
+  let timeout;
+  return function() {
+    clearTimeout(timeout);
+    timeout = setTimeout(callback, delay);
+  };
+};
+
+export {getRandomIntInclusive, getStringLength, isEscapeKey, errorAlert, successAlert, getDataAlert, shuffleArray, debounce };
