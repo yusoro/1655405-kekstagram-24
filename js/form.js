@@ -1,6 +1,14 @@
 import { isEscapeKey, errorAlert, successAlert } from './util.js';
 import {request} from './api.js';
 
+const HASHTAG_PATTERN = /^#[A-Za-zА-Яа-яЁё0-9]{1,19}$/;
+const HASHTAG_QUANTITY = 5;
+const HASHTAG_LENGTH = 20;
+const SCALE_EDGES = {
+  min: 25,
+  max: 100,
+};
+const SCALE_STEP = 25;
 const imgUploadFile = document.querySelector('#upload-file');
 const imgUploadOverlay = document.querySelector('.img-upload__overlay');
 const body = document.querySelector('body');
@@ -8,25 +16,13 @@ const closeButton = document.querySelector('.img-upload__cancel');
 const uploadForm = document.querySelector('.img-upload__form');
 const description = document.querySelector('.text__description');
 const hashtag = document.querySelector('.text__hashtags');
-const HASHTAG_PATTERN = /^#[A-Za-zА-Яа-яЁё0-9]{1,19}$/;
-const HASHTAG_QUANTITY = 5;
-const HASHTAG_LENGTH = 20;
-let hashtagArray = [];
+const effectSlider = document.querySelector('.effect-level__slider');
+const valueInput = document.querySelector('.effect-level__value');
 const scaleControlBigger = document.querySelector('.scale__control--bigger');
 const scaleControlSmaller = document.querySelector('.scale__control--smaller');
 const scaleControlValue = document.querySelector('.scale__control--value');
 const imagePreview = document.querySelector('.img-upload__preview img');
 const effectsList = document.querySelector('.effects__list');
-let currentEffect = 'none';
-const effectSlider = document.querySelector('.effect-level__slider');
-const valueInput = document.querySelector('.effect-level__value');
-const SCALE_EDGES = {
-  min: 25,
-  max: 100,
-};
-const SCALE_STEP = 25;
-let currentValue = 100;
-
 const effects = {
   none: () => {
     imagePreview.style.filter = 'none';
@@ -47,8 +43,21 @@ const effects = {
     imagePreview.style.filter = `brightness(${value})`;
   },
 };
+let hashtagArray = [];
+let currentEffect = 'none';
+let currentValue = 100;
 
-
+const onEscKeyDown = (evt) => {
+  if (isEscapeKey(evt)) {
+    evt.preventDefault();
+    imgUploadOverlay.classList.add('hidden');
+    body.classList.remove('modal-open');
+    effectSlider.noUiSlider.reset();
+    document.querySelector('.effect-level').classList.add('hidden');
+    currentEffect = 'none';
+    uploadForm.reset();
+  }
+};
 const uploadFormOpen = () => {
   imgUploadFile.addEventListener('change', () => {
     imgUploadOverlay.classList.remove('hidden');
@@ -59,40 +68,18 @@ const uploadFormOpen = () => {
     scaleControlValue.value = `${currentValue}%`;
     imagePreview.style.transform = `scale(${currentValue/100})`;
 
-    document.addEventListener('keydown', (evt) => {
-      if (isEscapeKey(evt)) {
-        evt.preventDefault();
-        imgUploadOverlay.classList.add('hidden');
-        body.classList.remove('modal-open');
-        effectSlider.noUiSlider.reset();
-        document.querySelector('.effect-level').classList.add('hidden');
-        currentEffect = 'none';
-        uploadForm.reset();
-      }
-    });
+    document.addEventListener('keydown', onEscKeyDown);
   });
 };
 
 const uploadFormClose = () => {
-
   imgUploadOverlay.classList.add('hidden');
   body.classList.remove('modal-open');
   effectSlider.noUiSlider.reset();
   document.querySelector('.effect-level').classList.add('hidden');
   currentEffect = 'none';
 
-
-  document.removeEventListener('keydown', (evt) => {
-    if (isEscapeKey(evt)) {
-      evt.preventDefault();
-      imgUploadOverlay.classList.add('hidden');
-      body.classList.remove('modal-open');
-      effectSlider.noUiSlider.reset();
-      document.querySelector('.effect-level').classList.add('hidden');
-      currentEffect = 'none';
-      uploadForm.reset();
-    }
-  });
+  document.removeEventListener('keydown', onEscKeyDown);
 };
 
 closeButton.addEventListener('click', () => {
@@ -197,14 +184,12 @@ noUiSlider.create(effectSlider, {
   start: 1,
   step: 0.1,
   connect: 'lower',
-
 });
 
 const applyEffect = () => {
   effectsList.addEventListener('click', (evt) => {
     if (evt.target.classList.contains('effects__preview')) {
       currentEffect = evt.target.classList[1].replace('effects__preview--', '');
-
       effects[currentEffect](valueInput.value);
     }
 

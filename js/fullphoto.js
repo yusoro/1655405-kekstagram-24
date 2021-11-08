@@ -1,13 +1,12 @@
 import { isEscapeKey } from './util.js';
 
-
+const MAX_COMMENTS = 5;
 const bigPicture = document.querySelector('.big-picture');
 const body = document.querySelector('body');
 const closeBigPicture = bigPicture.querySelector('.big-picture__cancel');
 const socialComments = document.querySelector('.social__comments');
 const socialComment = document.querySelector('.social__comment');
 const commentsLoader = document.querySelector('.comments-loader');
-const MAX_COMMENTS = 5;
 let currentComments = 5;
 
 const makeComment = ({avatar, name, message}) => {
@@ -42,7 +41,6 @@ const onEscKeyDown = (evt) => {
   }
 };
 
-
 const showComments = (comments) => {
   const onCommentsLoaderClick = () => {
     currentComments += MAX_COMMENTS;
@@ -65,7 +63,6 @@ const showComments = (comments) => {
     commentsLoader.removeEventListener('click', onCommentsLoaderClick);
   }
 };
-
 
 const showBigPicture = ({url, likes, description, comments}) => {
   currentComments = 5;

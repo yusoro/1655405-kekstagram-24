@@ -1,3 +1,9 @@
+const errorTemplate = document.querySelector('#error').content;
+const errorContainer = errorTemplate.querySelector('.error');
+const body = document.querySelector('body');
+const successTemplate = document.querySelector('#success').content;
+const successContainer = successTemplate.querySelector('.success');
+
 const getRandomIntInclusive = (min, max) => {
   if (min < 0 || max < 0) { return -1; }
   if (min > max) {
@@ -17,17 +23,7 @@ const shuffleArray = (array) => {
   }
 };
 
-function getStringLength(string, maxStringLength) {
-  return string.length <= maxStringLength;
-}
-
 const isEscapeKey = (evt) => evt.key === 'Escape' || evt.key === 'Esc';
-
-const errorTemplate = document.querySelector('#error').content;
-const errorContainer = errorTemplate.querySelector('.error');
-const body = document.querySelector('body');
-const successTemplate = document.querySelector('#success').content;
-const successContainer = successTemplate.querySelector('.success');
 
 const errorAlert = () => {
   const errorMessage = errorContainer.cloneNode(true);
@@ -124,4 +120,4 @@ const debounce = (callback, delay) => {
   };
 };
 
-export {getRandomIntInclusive, getStringLength, isEscapeKey, errorAlert, successAlert, getDataAlert, shuffleArray, debounce };
+export {getRandomIntInclusive, isEscapeKey, errorAlert, successAlert, getDataAlert, shuffleArray, debounce };

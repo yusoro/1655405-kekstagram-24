@@ -1,9 +1,8 @@
 import {showBigPicture} from './fullphoto.js';
 
 const template = document.querySelector('#picture').content;
-
 const pictureTemplate  = template.querySelector('a');
-const pictures = document.querySelector('.pictures');
+const picturesContainer = document.querySelector('.pictures');
 
 const makePicture = (photo) => {
   const picture = pictureTemplate.cloneNode(true);
@@ -23,7 +22,7 @@ const addPictures = (thumbnails) => {
   thumbnails.forEach((item) => {
     fragment.appendChild(makePicture(item));
   });
-  pictures.appendChild(fragment);
+  picturesContainer.appendChild(fragment);
 };
 
 const clearPictures = () => {
