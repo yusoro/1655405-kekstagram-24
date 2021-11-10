@@ -9,20 +9,20 @@ const SCALE_EDGES = {
   max: 100,
 };
 const SCALE_STEP = 25;
-const imgUploadFile = document.querySelector('#upload-file');
-const imgUploadOverlay = document.querySelector('.img-upload__overlay');
 const body = document.querySelector('body');
-const closeButton = document.querySelector('.img-upload__cancel');
 const uploadForm = document.querySelector('.img-upload__form');
-const description = document.querySelector('.text__description');
-const hashtag = document.querySelector('.text__hashtags');
-const effectSlider = document.querySelector('.effect-level__slider');
-const valueInput = document.querySelector('.effect-level__value');
-const scaleControlBigger = document.querySelector('.scale__control--bigger');
-const scaleControlSmaller = document.querySelector('.scale__control--smaller');
-const scaleControlValue = document.querySelector('.scale__control--value');
-const imagePreview = document.querySelector('.img-upload__preview img');
-const effectsList = document.querySelector('.effects__list');
+const imgUploadFile = uploadForm.querySelector('#upload-file');
+const imgUploadOverlay = uploadForm.querySelector('.img-upload__overlay');
+const closeButton = uploadForm.querySelector('.img-upload__cancel');
+const description = uploadForm.querySelector('.text__description');
+const hashtag = uploadForm.querySelector('.text__hashtags');
+const effectSlider = uploadForm.querySelector('.effect-level__slider');
+const valueInput = uploadForm.querySelector('.effect-level__value');
+const scaleControlBigger = uploadForm.querySelector('.scale__control--bigger');
+const scaleControlSmaller = uploadForm.querySelector('.scale__control--smaller');
+const scaleControlValue = uploadForm.querySelector('.scale__control--value');
+const imagePreview = uploadForm.querySelector('.img-upload__preview img');
+const effectsList = uploadForm.querySelector('.effects__list');
 const effects = {
   none: () => {
     imagePreview.style.filter = 'none';
@@ -267,4 +267,9 @@ const setUploadFormSubmit = () => {
   });
 };
 
-export {uploadFormOpen, uploadFormClose, minimizePhoto, maximizePhoto, applyEffect, setUploadFormSubmit};
+setUploadFormSubmit();
+uploadFormOpen();
+minimizePhoto();
+maximizePhoto();
+applyEffect();
+
