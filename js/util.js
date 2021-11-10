@@ -3,18 +3,7 @@ const errorContainer = errorTemplate.querySelector('.error');
 const body = document.querySelector('body');
 const successTemplate = document.querySelector('#success').content;
 const successContainer = successTemplate.querySelector('.success');
-
-const getRandomIntInclusive = (min, max) => {
-  if (min < 0 || max < 0) { return -1; }
-  if (min > max) {
-    [min, max] = [max, min];
-  }
-  min = Math.ceil(min);
-  max = Math.floor(max);
-
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-
-};
+let alertMessage;
 
 const shuffleArray = (array) => {
   for (let i = array.length - 1; i > 0; i --) {
@@ -25,88 +14,67 @@ const shuffleArray = (array) => {
 
 const isEscapeKey = (evt) => evt.key === 'Escape' || evt.key === 'Esc';
 
+const onEscKeyDown = (evt) => {
+  if (isEscapeKey(evt)) {
+    evt.preventDefault();
+    alertMessage.style.display = 'none';
+  }
+};
+
 const errorAlert = () => {
-  const errorMessage = errorContainer.cloneNode(true);
-  errorMessage.style.zIndex = 10;
-  body.appendChild(errorMessage);
+  alertMessage = errorContainer.cloneNode(true);
+  alertMessage.style.zIndex = 10;
+  body.appendChild(alertMessage);
 
-  errorMessage.querySelector('.error__button').addEventListener('click', () => {
-    errorMessage.style.display = 'none';
+  alertMessage.querySelector('.error__button').addEventListener('click', () => {
+    alertMessage.style.display = 'none';
 
-    document.removeEventListener('keydown', (evt) => {
-      if (isEscapeKey(evt)) {
-        evt.preventDefault();
-        errorMessage.style.display = 'none';
-      }
-    });
+    document.removeEventListener('keydown', onEscKeyDown);
   });
-  document.addEventListener('keydown', (evt) => {
-    if (isEscapeKey(evt)) {
-      evt.preventDefault();
-      errorMessage.style.display = 'none';
-    }
-  });
+  document.addEventListener('keydown', onEscKeyDown);
+
   document.addEventListener('click', (evt) => {
-    if (evt.target.contains(errorMessage)) {
-      errorMessage.style.display = 'none';
+    if (evt.target.contains(alertMessage)) {
+      alertMessage.style.display = 'none';
     }
   });
 };
 
 const successAlert = () => {
-  const successMessage = successContainer.cloneNode(true);
-  successMessage.style.zIndex = 10;
-  body.appendChild(successMessage);
+  alertMessage = successContainer.cloneNode(true);
+  alertMessage.style.zIndex = 10;
+  body.appendChild(alertMessage);
 
-  successMessage.querySelector('.success__button').addEventListener('click', () => {
-    successMessage.style.display = 'none';
+  alertMessage.querySelector('.success__button').addEventListener('click', () => {
+    alertMessage.style.display = 'none';
 
-    document.removeEventListener('keydown', (evt) => {
-      if (isEscapeKey(evt)) {
-        evt.preventDefault();
-        successMessage.style.display = 'none';
-      }
-    });
-
+    document.removeEventListener('keydown', onEscKeyDown);
   });
-  document.addEventListener('keydown', (evt) => {
-    if (isEscapeKey(evt)) {
-      evt.preventDefault();
-      successMessage.style.display = 'none';
-    }
-  });
+  document.addEventListener('keydown', onEscKeyDown);
+
   document.addEventListener('click', (evt) => {
-    if (evt.target.contains(successMessage)) {
-      successMessage.style.display = 'none';
+    if (evt.target.contains(alertMessage)) {
+      alertMessage.style.display = 'none';
     }
   });
 };
 
 const getDataAlert = () => {
-  const dataAlertMessage = errorContainer.cloneNode(true);
-  dataAlertMessage.style.zIndex = 10;
-  dataAlertMessage.querySelector('h2').textContent = 'Ошибка загрузки данных с сервера';
-  dataAlertMessage.querySelector('button').textContent = 'Попробуйте обновить страницу';
-  body.appendChild(dataAlertMessage);
+  alertMessage = errorContainer.cloneNode(true);
+  alertMessage.style.zIndex = 10;
+  alertMessage.querySelector('h2').textContent = 'Ошибка загрузки данных с сервера';
+  alertMessage.querySelector('button').textContent = 'Попробуйте обновить страницу';
+  body.appendChild(alertMessage);
 
-  dataAlertMessage.querySelector('button').addEventListener('click', () => {
-    dataAlertMessage.style.display = 'none';
-    document.removeEventListener('keydown', (evt) => {
-      if (isEscapeKey(evt)) {
-        evt.preventDefault();
-        dataAlertMessage.style.display = 'none';
-      }
-    });
+  alertMessage.querySelector('button').addEventListener('click', () => {
+    alertMessage.style.display = 'none';
+    document.removeEventListener('keydown', onEscKeyDown);
   });
-  document.addEventListener('keydown', (evt) => {
-    if (isEscapeKey(evt)) {
-      evt.preventDefault();
-      dataAlertMessage.style.display = 'none';
-    }
-  });
+  document.addEventListener('keydown', onEscKeyDown);
+
   document.addEventListener('click', (evt) => {
-    if (evt.target.contains(dataAlertMessage)) {
-      dataAlertMessage.style.display = 'none';
+    if (evt.target.contains(alertMessage)) {
+      alertMessage.style.display = 'none';
     }
   });
 
@@ -114,10 +82,10 @@ const getDataAlert = () => {
 
 const debounce = (callback, delay) => {
   let timeout;
-  return function() {
+  return () => {
     clearTimeout(timeout);
     timeout = setTimeout(callback, delay);
   };
 };
 
-export {getRandomIntInclusive, isEscapeKey, errorAlert, successAlert, getDataAlert, shuffleArray, debounce };
+export { isEscapeKey, errorAlert, successAlert, getDataAlert, shuffleArray, debounce };

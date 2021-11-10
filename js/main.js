@@ -1,7 +1,6 @@
 import {request} from './api.js';
 import {addPictures, clearPictures} from './pictures.js';
 import './form.js';
-import {uploadFormOpen, minimizePhoto, maximizePhoto, applyEffect, setUploadFormSubmit} from './form.js';
 import './fullphoto.js';
 import { getDataAlert, shuffleArray, debounce } from './util.js';
 import './img-upload.js';
@@ -11,14 +10,6 @@ const filtersContainer = document.querySelector('.img-filters');
 const filtersForm = filtersContainer.querySelector('.img-filters__form');
 let pictures = [];
 let sortedPictures = [];
-
-setUploadFormSubmit();
-uploadFormOpen();
-minimizePhoto();
-maximizePhoto();
-applyEffect();
-
-filtersContainer.classList.remove('img-filters--inactive');
 
 const sortPictures = (cb) => {
   filtersForm.addEventListener('click', (evt) => {
@@ -46,6 +37,7 @@ const sortPictures = (cb) => {
 const onSuccess = (data) => {
   pictures = data.slice();
   addPictures(pictures);
+  filtersContainer.classList.remove('img-filters--inactive');
   sortPictures(debounce(
     () => addPictures(sortedPictures),
     RERENDER_DELAY,
