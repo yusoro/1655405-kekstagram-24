@@ -6,6 +6,7 @@ import { getDataAlert, shuffleArray, debounce } from './util.js';
 import './img-upload.js';
 
 const RERENDER_DELAY = 500;
+const PICTURES_AMOUNT = 10;
 const filtersContainer = document.querySelector('.img-filters');
 const filtersForm = filtersContainer.querySelector('.img-filters__form');
 let pictures = [];
@@ -19,7 +20,7 @@ const sortPictures = (cb) => {
     clearPictures();
 
     if (evt.target.id === 'filter-random') {
-      sortedPictures = pictures.slice(0, 10);
+      sortedPictures = pictures.slice(0, PICTURES_AMOUNT);
       shuffleArray(sortedPictures);
       cb();
     }

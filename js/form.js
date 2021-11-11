@@ -1,4 +1,4 @@
-import { isEscapeKey, errorAlert, successAlert } from './util.js';
+import { isEscapeKey, showErrorAlert, showSuccessAlert } from './util.js';
 import {request} from './api.js';
 
 const HASHTAG_PATTERN = /^#[A-Za-zА-Яа-яЁё0-9]{1,19}$/;
@@ -256,8 +256,8 @@ const setUploadFormSubmit = () => {
     evt.preventDefault();
 
     request(
-      successAlert,
-      errorAlert,
+      showSuccessAlert,
+      showErrorAlert,
       'POST',
       new FormData(evt.target),
     );
