@@ -21,7 +21,7 @@ const onEscKeyDown = (evt) => {
   }
 };
 
-const errorAlert = () => {
+const showErrorAlert = () => {
   alertMessage = errorContainer.cloneNode(true);
   alertMessage.style.zIndex = 10;
   body.appendChild(alertMessage);
@@ -40,7 +40,7 @@ const errorAlert = () => {
   });
 };
 
-const successAlert = () => {
+const showSuccessAlert = () => {
   alertMessage = successContainer.cloneNode(true);
   alertMessage.style.zIndex = 10;
   body.appendChild(alertMessage);
@@ -88,4 +88,4 @@ const debounce = (callback, delay) => {
   };
 };
 
-export { isEscapeKey, errorAlert, successAlert, getDataAlert, shuffleArray, debounce };
+export { isEscapeKey, showErrorAlert, showSuccessAlert, getDataAlert, shuffleArray, debounce };
